@@ -1,87 +1,86 @@
-let labours = JSON.parse(localStorage.getItem("labours")) || [];
-let attendance = JSON.parse(localStorage.getItem("attendance")) || {};
 
-function showSection(id) {
-  document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-  updateDashboard();
-  loadAttendance();
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-document.getElementById("labourForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const labour = {
-    id: labourId.value,
-    name: name.value,
-    age: age.value,
-    mobile: mobile.value,
-    workType: workType.value
-  };
-  labours.push(labour);
-  localStorage.setItem("labours", JSON.stringify(labours));
-  this.reset();
-  alert("Labour Added");
-  updateDashboard();
-});
-
-function loadAttendance() {
-  const table = document.getElementById("attendanceTable");
-  table.innerHTML = "";
-  labours.forEach((labour, i) => {
-    table.innerHTML += `
-      <tr>
-        <td>${labour.name}</td>
-        <td>${labour.workType}</td>
-        <td>
-          <select id="status${i}">
-            <option value="Present">Present</option>
-            <option value="Absent">Absent</option>
-          </select>
-        </td>
-      </tr>
-    `;
-  });
+body {
+  margin: 0;
+  background: #f4f6f8;
 }
 
-function saveAttendance() {
-  const date = attendanceDate.value;
-  if (!date) return alert("Select date");
-  attendance[date] = labours.map((labour, i) => ({
-    name: labour.name,
-    status: document.getElementById(`status${i}`).value
-  }));
-  localStorage.setItem("attendance", JSON.stringify(attendance));
-  alert("Attendance Saved");
-  updateDashboard();
+header {
+  background: #1f2937;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
 }
 
-function loadReport() {
-  const date = reportDate.value;
-  const table = document.getElementById("reportTable");
-  table.innerHTML = "";
-  if (!attendance[date]) return;
-  attendance[date].forEach(r => {
-    table.innerHTML += `
-      <tr>
-        <td>${r.name}</td>
-        <td>${r.status}</td>
-      </tr>
-    `;
-  });
+nav {
+  background: #374151;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-function updateDashboard() {
-  totalLabour.innerText = labours.length;
-  const today = new Date().toISOString().split("T")[0];
-  let present = 0;
-  let absent = 0;
-  if (attendance[today]) {
-    attendance[today].forEach(r => {
-      r.status === "Present" ? present++ : absent++;
-    });
-  }
-  presentToday.innerText = present;
-  absentToday.innerText = absent;
+nav button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
 }
 
-updateDashboard();
+nav button:hover {
+  background: #1d4ed8;
+}
+
+.container {
+  padding: 15px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
