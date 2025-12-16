@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Labour Attendance Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Labour Attendance Management System</h1>
+</header>
+
+<nav>
+  <button onclick="showSection('dashboard')">Dashboard</button>
+  <button onclick="showSection('addLabour')">Add Labour</button>
+  <button onclick="showSection('attendance')">Attendance</button>
+  <button onclick="showSection('reports')">Reports</button>
+</nav>
+
+<div class="container">
+
+  <!-- Dashboard -->
+  <section id="dashboard" class="section">
+    <div class="cards">
+      <div class="card">
+        <h3>Total Labour</h3>
+        <p id="totalLabour">0</p>
+      </div>
+      <div class="card">
+        <h3>Present Today</h3>
+        <p id="presentToday">0</p>
+      </div>
+      <div class="card">
+        <h3>Absent Today</h3>
+        <p id="absentToday">0</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Labour -->
+  <section id="addLabour" class="section hidden">
+    <h2>Add Labour</h2>
+    <form id="labourForm">
+      <input type="text" id="labourId" placeholder="Labour ID" required>
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="number" id="age" placeholder="Age" required>
+      <input type="text" id="mobile" placeholder="Mobile Number" required>
+      <input type="text" id="workType" placeholder="Work Type" required>
+      <button type="submit">Add Labour</button>
+    </form>
+  </section>
+
+  <!-- Attendance -->
+  <section id="attendance" class="section hidden">
+    <h2>Mark Attendance</h2>
+    <input type="date" id="attendanceDate">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Work Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceTable"></tbody>
+    </table>
+    <button onclick="saveAttendance()">Save Attendance</button>
+  </section>
+
+  <!-- Reports -->
+  <section id="reports" class="section hidden">
+    <h2>Attendance Reports</h2>
+    <input type="date" id="reportDate" onchange="loadReport()">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="reportTable"></tbody>
+    </table>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
